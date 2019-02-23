@@ -19,10 +19,10 @@ void loop() {
 
  if (val == HIGH)
  {
-  digitalWrite (LED,HIGH);
+  digitalWrite (LED,LOW);
  }
  else
  {
-  digitalWrite (LED,LOW);
+  digitalWrite (LED,HIGH);
  }
 }
