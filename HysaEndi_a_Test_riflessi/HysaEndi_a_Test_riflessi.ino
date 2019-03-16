@@ -6,7 +6,7 @@ int tempoTestIn;  //tempo prova led blu
 int tempoTestBuzz;  //tempo prova buzzer
 int bottone;//bottone per esecuzione primo test
 int statoBottone; //stato del bottone: HIGH o LOW
-int tempoTestTot;
+
 
 
 
@@ -15,8 +15,8 @@ void setup() {
   bottone = 3;
   ledBlu = 4;
   buzzer = 5;
-  rgb_Rosso = 8;
-  rgb_Verde = 9;
+  rgb_Rosso = 9;
+  rgb_Verde = 8;
   
   
  pinMode (bottone,INPUT);
@@ -24,6 +24,7 @@ void setup() {
  pinMode (buzzer, OUTPUT);
  pinMode (rgb_Rosso, OUTPUT);
  pinMode (rgb_Verde, OUTPUT);
+ Serial.begin(9600);
   
   
 
@@ -34,55 +35,53 @@ void loop() {
    premerePulsante();  //il programma parte con la pressione del bottone
    tempoTestIn = esecuzioneTest (ledBlu, "Lasso di tempo riguardante il test visivo:");  //restituisce il tempo relativo al test del led Blu
    tempoTestBuzz = esecuzioneTest (buzzer, "Lasso di tempo riguardante il test uditivo:"); //restituisce il tempo relativo al test del Buzzer
-   verificaTest (tempoTestIn,tempoTestBuzz,rgb_Verde,rgb_Rosso);  //controlla i tempi e accende il led a seconda del completamento corretto dei test
+   verificaTest (tempoTestIn,tempoTestBuzz);  //controlla i tempi e accende il led a seconda del completamento corretto dei test
   
    
 
 }
 
 void premerePulsante()
-{ bool btnPremuto = false;
-  statoBottone = digitalRead (bottone); //variabile di appoggio
+{ 
+  bool btnPremuto = false;
+ // statoBottone = digitalRead (bottone)
   while (!btnPremuto)
   {
-    if (statoBottone == HIGH)
+    if (digitalRead (bottone) == HIGH)
     {
-      btnPremuto = true;
+       btnPremuto = true;
     }
-    else
-    {
-      btnPremuto = false;
-    }
+    
   }
-  
 }
-
-int esecuzioneTest (int oggetto, String messaggio)  //oggetto indico i led o il buzzer
+    
+int esecuzioneTest (int oggetto, String messaggio)  
 {
-  
+  int tempoUno;
+  int tempoTestTot;
   delay (random(500,8000));
   digitalWrite (oggetto,HIGH);
-  tempoTestIn = millis(); //restituisce il tempo trascorso fino a quando non premo il pulsante
-  digitalWrite (oggetto,LOW);
+  tempoUno = millis(); //restituisce il tempo trascorso fino a quando non premo il pulsante
   premerePulsante();
-  delay (random(500,8000));
-  digitalWrite (oggetto,HIGH);
-  tempoTestBuzz = millis();
-  tempoTestTot = tempoTestIn + tempoTestBuzz;
+  digitalWrite (oggetto,LOW);
+  int tempoDue = millis();
+  tempoTestTot = tempoDue - tempoUno ; 
   Serial.println (messaggio + String(tempoTestTot));
+  
 }
 
-void verificaTest (int tempoTestIn, int tempoTestBuzz , int testSuperato, int testNonSuperato)
+void verificaTest (int tempoTestIn, int tempoTestBuzz)
 {
   //con test superato e non superato intendo di che colore il led rgb si dovrà colorare ( verde = test superato / rosso = test non superato)
-  if (tempoTestIn > 250 && tempoTestBuzz > 250)
-  {
-    digitalWrite (testNonSuperato,HIGH);
+  if (tempoTestIn >= 500 || tempoTestBuzz >= 500)
+  {  
+    digitalWrite (rgb_Rosso,HIGH);
   }
-  else
-  {
-    digitalWrite (testSuperato,HIGH);
+  else if (tempoTestIn < 500 && tempoTestBuzz < 500)
+  {    
+    digitalWrite (rgb_Verde,HIGH);
   }
-  digitalWrite (testSuperato,LOW);  //spengo i 2 led rgb
-  digitalWrite (testNonSuperato,LOW);
+  delay (8000);
+  digitalWrite (rgb_Verde ,LOW);  //spengo i 2 led rgb
+  digitalWrite (rgb_Rosso,LOW);
 }
