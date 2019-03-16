@@ -16,7 +16,7 @@ void setup() {
   ledBlu = 4;
   buzzer = 5;
   rgb_Rosso = 8;
-  rgb_Verde;
+  rgb_Verde = 9;
   
   
  pinMode (bottone,INPUT);
@@ -32,20 +32,32 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
    premerePulsante();  //il programma parte con la pressione del bottone
-   tempoTestIn = esecuzioneTest (ledBlu, "Lasso di tempo riguardante il test visivo:");
-   tempoTestBuzz = esecuzioneTest (buzzer, "Lasso di tempo riguardante il test uditivo:");
-   verificaTest (tempoTestIn,tempoTestBuzz,rgb_Verde,rgb_Rosso);
+   tempoTestIn = esecuzioneTest (ledBlu, "Lasso di tempo riguardante il test visivo:");  //restituisce il tempo relativo al test del led Blu
+   tempoTestBuzz = esecuzioneTest (buzzer, "Lasso di tempo riguardante il test uditivo:"); //restituisce il tempo relativo al test del Buzzer
+   verificaTest (tempoTestIn,tempoTestBuzz,rgb_Verde,rgb_Rosso);  //controlla i tempi e accende il led a seconda del completamento corretto dei test
   
    
 
 }
 
 void premerePulsante()
-{ statoBottone = digitalRead (bottone); //variabile di appoggio
-  statoBottone = HIGH;
+{ bool btnPremuto = false;
+  statoBottone = digitalRead (bottone); //variabile di appoggio
+  while (!btnPremuto)
+  {
+    if (statoBottone == HIGH)
+    {
+      btnPremuto = true;
+    }
+    else
+    {
+      btnPremuto = false;
+    }
+  }
+  
 }
 
-int esecuzioneTest (int oggetto, String messaggio)
+int esecuzioneTest (int oggetto, String messaggio)  //oggetto indico i led o il buzzer
 {
   int tempoUno;
   int tempoTestTot;
