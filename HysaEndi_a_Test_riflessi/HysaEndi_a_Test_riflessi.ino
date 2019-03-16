@@ -12,6 +12,13 @@ int statoBottone; //stato del bottone: HIGH o LOW
 
 void setup() {
   // put your setup code here, to run once:
+  bottone = 3;
+  ledBlu = 4;
+  buzzer = 5;
+  rgb_Rosso = 8;
+  rgb_Verde;
+  
+  
  pinMode (bottone,INPUT);
  pinMode (ledBlu, OUTPUT);
  pinMode (buzzer, OUTPUT);
