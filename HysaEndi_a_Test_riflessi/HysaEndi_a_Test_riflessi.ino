@@ -77,7 +77,7 @@ void verificaTest (int tempoTestIn, int tempoTestBuzz)
   {  
     digitalWrite (rgb_Rosso,HIGH);
   }
-  else if (tempoTestIn < 500 && tempoTestBuzz < 500)
+  else if ()
   {    
     digitalWrite (rgb_Verde,HIGH);
   }
