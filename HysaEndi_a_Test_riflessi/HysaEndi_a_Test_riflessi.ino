@@ -32,10 +32,12 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  Serial.println ("INIZIO TEST");
    premerePulsante();  //il programma parte con la pressione del bottone
    tempoTestIn = esecuzioneTest (ledBlu, "Lasso di tempo riguardante il test visivo:");  //restituisce il tempo relativo al test del led Blu
    tempoTestBuzz = esecuzioneTest (buzzer, "Lasso di tempo riguardante il test uditivo:"); //restituisce il tempo relativo al test del Buzzer
    verificaTest (tempoTestIn,tempoTestBuzz);  //controlla i tempi e accende il led a seconda del completamento corretto dei test
+   Serial.println ("FINE TEST");
   
    
 
@@ -77,7 +79,7 @@ void verificaTest (int tempoTestIn, int tempoTestBuzz)
   {  
     digitalWrite (rgb_Rosso,HIGH);
   }
-  else if ()
+  else 
   {    
     digitalWrite (rgb_Verde,HIGH);
   }
