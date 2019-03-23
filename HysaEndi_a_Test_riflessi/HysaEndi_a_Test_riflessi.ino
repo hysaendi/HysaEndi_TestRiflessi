@@ -58,13 +58,13 @@ int esecuzioneTest (int oggetto, String messaggio)
 {
   int tempoUno;
   int tempoTestTot;
-  delay (random(500,8000));
+  delay (random(1000,10000));
   digitalWrite (oggetto,HIGH);
   tempoUno = millis(); //restituisce il tempo trascorso fino a quando non premo il pulsante
   premerePulsante();
   digitalWrite (oggetto,LOW);
   int tempoDue = millis();
-  tempoTestTot = tempoDue - tempoUno ; 
+  tempoTestTot = tempoDue - tempoUno ;  //calcolo il lasso di tempo
   Serial.println (messaggio + String(tempoTestTot));
   
 }
