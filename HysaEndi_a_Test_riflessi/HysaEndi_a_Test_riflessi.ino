@@ -4,7 +4,7 @@ int rgb_Rosso; //led che cambia colore
 int rgb_Verde; 
 int tempoTestIn;  //tempo prova led blu
 int tempoTestBuzz;  //tempo prova buzzer
-int bottone;//bottone per esecuzione primo test
+int bottone;//bottone per esecuzione test
 int statoBottone; //stato del bottone: HIGH o LOW
 
 
@@ -24,6 +24,7 @@ void setup() {
  pinMode (buzzer, OUTPUT);
  pinMode (rgb_Rosso, OUTPUT);
  pinMode (rgb_Verde, OUTPUT);
+ 
  Serial.begin(9600);
   
   
@@ -47,13 +48,13 @@ int esecuzioneTest (int oggetto, String messaggio)
 {
   int tempoUno;
   int tempoTestTot;
-  delay (random(1000,10000));
+  delay (random(1000,10000));  //accendo l'oggetto in un lasso di tempo random
   digitalWrite (oggetto,HIGH);
   tempoUno = millis(); //restituisce il tempo trascorso fino a quando non premo il pulsante
   premerePulsante();
   digitalWrite (oggetto,LOW);
   int tempoDue = millis();
-  tempoTestTot = tempoDue - tempoUno ;  //calcolo il lasso di tempo riguardante il test
+  tempoTestTot = tempoDue - tempoUno ;  //calcolo il lasso di tempo fino allo spegnimento dell'oggetto
   Serial.println (messaggio + String(tempoTestTot)); 
   
 }
