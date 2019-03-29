@@ -41,16 +41,17 @@ void loop() {
 
     
 
-int esecuzioneTest (int oggetto, String messaggio)  
+int esecuzioneTest (int dispositivo, String messaggio)  
 {
   int tempoUno;
   int tempoTestTot;
   delay (random(1000,10000));
-  digitalWrite (oggetto,HIGH);
+  digitalWrite (dispositivo,HIGH);
   tempoUno = millis(); //restituisce il tempo trascorso fino a quando non premo il pulsante
   premerePulsante();
-  digitalWrite (oggetto,LOW);
-  int tempoDue = millis();
+  digitalWrite (dispositivo,LOW);
+  int tempoDue;
+  tempoDue = millis();
   tempoTestTot = tempoDue - tempoUno ;  //calcolo il lasso di tempo riguardante il test
   Serial.println (messaggio + String(tempoTestTot)); 
   
