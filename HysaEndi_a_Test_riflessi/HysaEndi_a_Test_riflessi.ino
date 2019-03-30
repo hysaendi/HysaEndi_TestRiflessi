@@ -1,3 +1,4 @@
+
 int  ledBlu; //led primotest
 int buzzer; //secondo test
 int rgb_Rosso; //led che cambia colore
@@ -9,11 +10,12 @@ int statoBottone; //stato del bottone: HIGH o LOW
 
 void setup() {
   // put your setup code here, to run once:
-  bottone = 3;
+  bottone = 2;
   ledBlu = 4;
-  buzzer = 5;
-  rgb_Rosso = 9;
-  rgb_Verde = 8;
+  buzzer = 3 ;
+  rgb_Rosso = 7;
+  rgb_Verde = 6;
+  
   
   
  pinMode (bottone,INPUT);
@@ -21,10 +23,6 @@ void setup() {
  pinMode (buzzer, OUTPUT);
  pinMode (rgb_Rosso, OUTPUT);
  pinMode (rgb_Verde, OUTPUT);
- 
- Serial.begin(9600);
-  
-  
 
 }  
 
@@ -35,7 +33,7 @@ void loop() {
    tempoTestIn = esecuzioneTest (ledBlu, "Lasso di tempo riguardante il test visivo (OUTPUT IN MS):");  //restituisce il tempo relativo al test del led Blu
    tempoTestBuzz = esecuzioneTest (buzzer, "Lasso di tempo riguardante il test uditivo (OUTPUT IN MS) :"); //restituisce il tempo relativo al test del Buzzer
    verificaTest (tempoTestIn,tempoTestBuzz);  //controlla i tempi e accende il led a seconda del completamento corretto dei test
-   Serial.println ("FINE TEST");
+   Serial.println ("FINE TEST");  
 }
 
 
@@ -50,8 +48,7 @@ int esecuzioneTest (int dispositivo, String messaggio)
   tempoUno = millis(); //restituisce il tempo trascorso fino a quando non premo il pulsante
   premerePulsante();
   digitalWrite (dispositivo,LOW);
-  int tempoDue;
-  tempoDue = millis();
+  int tempoDue =  millis();
   tempoTestTot = tempoDue - tempoUno ;  //calcolo il lasso di tempo riguardante il test
   Serial.println (messaggio + String(tempoTestTot)); 
   
